@@ -1,0 +1,362 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- common.css -->
+      <style>* {-webkit-tap-highlight-color: rgba(0,0,0,0);}html {-webkit-text-size-adjust: none;}body {font-family: -apple-system, Helvetica, Arial, sans-serif;margin: 0;padding: 20px;color: #333;word-wrap: break-word;}h1, h2, h3, h4, h5, h6 {line-height: 1.1;}img {max-width: 100% !important;}blockquote {margin: 0;padding: 0 15px;color: #777;border-left: 4px solid #ddd;}hr {background-color: #ddd;border: 0;height: 1px;margin: 15px 0;}code {font-family: Menlo, Consolas, 'Ubuntu Mono', Monaco, 'source-code-pro', monospace;line-height: 1.4;margin: 0;padding: 0.2em 0;font-size: 90%;background-color: rgba(0,0,0,0.04);border-radius: 3px;}pre > code {margin: 0;padding: 0;font-size: 100%;word-break: normal;background: transparent;border: 0;}ol {list-style-type: decimal;}ol ol, ul ol {list-style-type: lower-latin;}ol ol ol, ul ol ol, ul ul ol, ol ul ol {list-style-type: lower-roman;}table {border-spacing: 0;border-collapse: collapse;margin-top: 0;margin-bottom: 16px;}table th {font-weight: bold;}table th, table td {padding: 6px 13px;border: 1px solid #ddd;}table tr {border-top: 1px solid #ccc;}table tr:nth-child(even) {background-color: #f8f8f8;}input[type="checkbox"] {cursor: default;margin-right: 0.5em;font-size: 13px;}.task-list-item {list-style-type: none;}.task-list-item+.task-list-item {margin-top: 3px;}.task-list-item input {float: left;margin: 0.3em 1em 0.25em -1.6em;vertical-align: middle;}#tag-field {margin: 8px 2px 10px;}#tag-field .tag {display: inline-block;background: #cadff3;border-radius: 4px;padding: 1px 8px;color: black;font-size: 12px;margin-right: 10px;line-height: 1.4;}</style>
+      <!-- ace-static.css -->
+      <style>.ace_static_highlight {white-space: pre-wrap;}.ace_static_highlight .ace_gutter {width: 2em;text-align: right;padding: 0 3px 0 0;margin-right: 3px;}.ace_static_highlight.ace_show_gutter > .ace_line {padding-left: 2.6em;}.ace_static_highlight .ace_line {position: relative;}.ace_static_highlight .ace_gutter-cell {-moz-user-select: -moz-none;-khtml-user-select: none;-webkit-user-select: none;user-select: none;top: 0;bottom: 0;left: 0;position: absolute;}.ace_static_highlight .ace_gutter-cell:before {content: counter(ace_line, decimal);counter-increment: ace_line;}.ace_static_highlight {counter-reset: ace_line;}</style>
+      <style>.ace-monokai .ace_gutter {background: #2F3129;color: #8F908A}.ace-monokai .ace_print-margin {width: 1px;background: #555651}.ace-monokai {background-color: #272822;color: #F8F8F2}.ace-monokai .ace_cursor {color: #F8F8F0}.ace-monokai .ace_marker-layer .ace_selection {background: #49483E}.ace-monokai.ace_multiselect .ace_selection.ace_start {box-shadow: 0 0 3px 0px #272822;}.ace-monokai .ace_marker-layer .ace_step {background: rgb(102, 82, 0)}.ace-monokai .ace_marker-layer .ace_bracket {margin: -1px 0 0 -1px;border: 1px solid #49483E}.ace-monokai .ace_marker-layer .ace_active-line {background: #202020}.ace-monokai .ace_gutter-active-line {background-color: #272727}.ace-monokai .ace_marker-layer .ace_selected-word {border: 1px solid #49483E}.ace-monokai .ace_invisible {color: #52524d}.ace-monokai .ace_entity.ace_name.ace_tag,.ace-monokai .ace_keyword,.ace-monokai .ace_meta.ace_tag,.ace-monokai .ace_storage {color: #F92672}.ace-monokai .ace_punctuation,.ace-monokai .ace_punctuation.ace_tag {color: #fff}.ace-monokai .ace_constant.ace_character,.ace-monokai .ace_constant.ace_language,.ace-monokai .ace_constant.ace_numeric,.ace-monokai .ace_constant.ace_other {color: #AE81FF}.ace-monokai .ace_invalid {color: #F8F8F0;background-color: #F92672}.ace-monokai .ace_invalid.ace_deprecated {color: #F8F8F0;background-color: #AE81FF}.ace-monokai .ace_support.ace_constant,.ace-monokai .ace_support.ace_function {color: #66D9EF}.ace-monokai .ace_fold {background-color: #A6E22E;border-color: #F8F8F2}.ace-monokai .ace_storage.ace_type,.ace-monokai .ace_support.ace_class,.ace-monokai .ace_support.ace_type {font-style: italic;color: #66D9EF}.ace-monokai .ace_entity.ace_name.ace_function,.ace-monokai .ace_entity.ace_other,.ace-monokai .ace_entity.ace_other.ace_attribute-name,.ace-monokai .ace_variable {color: #A6E22E}.ace-monokai .ace_variable.ace_parameter {font-style: italic;color: #FD971F}.ace-monokai .ace_string {color: #E6DB74}.ace-monokai .ace_comment {color: #75715E}.ace-monokai .ace_indent-guide {background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEklEQVQImWPQ0FD0ZXBzd/wPAAjVAoxeSgNeAAAAAElFTkSuQmCC) right repeat-y}</style>
+      <!-- export.css -->
+      <style>
+        body{margin:0 auto;max-width:800px;line-height:1.4}
+        #nav{margin:5px 0 10px;font-size:15px}
+        #titlearea{border-bottom:1px solid #ccc;font-size:17px;padding:10px 0;}
+        #contentarea{font-size:15px;margin:16px 0}
+        .cell{outline:0;min-height:20px;margin:5px 0;padding:5px 0;}
+        .code-cell{font-family:Menlo,Consolas,'Ubuntu Mono',Monaco,'source-code-pro',monospace;font-size:12px;}
+        .latex-cell{white-space:pre-wrap;}
+      </style>
+      <!-- User CSS -->
+      <style> .text-cell {font-size: 15px;}.code-cell {font-size: 12px;}.markdown-cell {font-size: 15px;}.latex-cell {font-size: 15px;}</style>
+    </head>
+    <body>
+      
+      <div id="titlearea">
+        <h2>情報通信ネットワーク</h2>
+      </div>
+      <div id="contentarea"><div class="cell markdown-cell"><h2>前半課題10/21〜10/22</h2>
+<ul>
+<li>webサーバを作成</li>
+<li>作業記録をmarkdown形式で記述</li>
+<li>markdownをhtmlに変換(Save as HTML)</li>
+<li>作成したWebサーバ上で公開する</li>
+</ul>
+<h2>一日目</h2>
+<h3>■ AWSアカウント作成</h3>
+<p>01.sakamakiのGmailアドレスを使いAWSアカウント作成を行った<br>
+以下、注意点↓</p>
+<ul>
+<li>クレカの登録必須</li>
+<li>電話確認必須</li>
+<li>各自別のネットワーク接続からアカウント作成
+<ul>
+<li>同じネットワークからの複数アクセスはAWSから拒否される可能性がある</li>
+</ul>
+</li>
+<li>選択するプランは「ベーシック」プラン</li>
+</ul>
+<h3>■ EC2インスタンス作成</h3>
+<ul>
+<li>起動するイメージ: Amazon Linux</li>
+<li>インスタンスの種類: t2.micro</li>
+<li>キーペア名: 01_saka_mau
+<ul>
+<li>$HOME/.ssh/配下にキーペアファイルを配置</li>
+<li><code>chmod 600 01_saka_mau.pem</code>して利用者権限の範囲を狭めておく</li>
+</ul>
+</li>
+<li>セキュリティグループ設定
+<ul>
+<li>使用ポートは22, 80</li>
+<li>とりあえずmau-mitakaからの接続のみ可能としておく</li>
+</ul>
+</li>
+</ul>
+<h3>■ サーバへの接続</h3>
+<p>以下のコマンドでssh接続を行う</p>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>ssh -i ~/.ssh/01_saka_mau.pem ec2-user@ec2-13-114-100-112.ap-northeast-1.compute.amazonaws.com
+</div></div></div></pre>
+<p>rootユーザになるためには以下のコマンドを入力する</p>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>sudo -i
+</div></div></div></pre>
+<h3>■ サーバセットアップ</h3>
+<p>WebサーバはNginxを使用する。<br>
+以下、設定手順を示す</p>
+<h4>◇ Nginxインストール</h4>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>sudo yum install nginx
+</div></div></div></pre>
+<h4>◇ Nginx 起動</h4>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>sudo service nginx start
+</div></div></div></pre>
+<h4>◇ サーバ起動時にNginxを起動するよう指定</h4>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>sudo chkconfig nginx on
+</div></div></div></pre>
+<h4>◇ Nginx 起動確認</h4>
+<p>AWSマネージメントコンソール＞EC2＞Instances＞Public DNS (IPv4)に書いてあるドメインをコピペしてアクセスする<br>
+例)</p>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>ec2-13-114-100-112.ap-northeast-1.compute.amazonaws.com
+</div></div></div></pre>
+<img width="1432" alt="2017-10-21 12 29 40" src="https://user-images.githubusercontent.com/649128/31847713-a9f35af8-b65b-11e7-8509-a4f748b5ece0.png">
+<p>以下の画面が表示されればおｋ<br>
+<img width="1429" alt="2017-10-21 12 31 35" src="https://user-images.githubusercontent.com/649128/31847721-d184ef50-b65b-11e7-8376-6e3f97b2c1c1.png"></p>
+<h3>■ 作成したMarkdownをWebサーバで公開する</h3>
+<h4>◇ MarkdownのHTML保存</h4>
+<h5>[アプリ：AtomでのHTML保存]</h5>
+<ol>
+<li>Shift-Cmd-Mを押し、プレビュー表示させておく</li>
+<li>プレビュー画面で右クリックし、「Save As HTML...」を選択し、指定場所に保存する<br>
+<img src="https://user-images.githubusercontent.com/649128/31848511-97e40f60-b66f-11e7-9cfa-b7511400a92a.png" alt="2017-10-21 14 50 14a"></li>
+</ol>
+<h5>[アプリ：QuiverでのHTML保存]</h5>
+<ol>
+<li><a href="http://happenapps.com/">Quiver</a>アプリを起動する</li>
+<li>新規ノートを作成し、HTMLで保存したMarkdown文書をペーストする</li>
+<li>File＞Export Note＞As HTMLで保存する</li>
+</ol>
+<h4>◇ HTMLファイルをサーバへアップロードする</h4>
+<ol>
+<li>以下のscpコマンドでファイルをアップロードする<br>
+例)</li>
+</ol>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_identifier">scp</span> <span class="ace_keyword ace_operator">-</span><span class="ace_identifier">i</span> <span class="ace_keyword ace_operator">~/</span>.<span class="ace_identifier">ssh</span><span class="ace_keyword ace_operator">/</span><span class="ace_constant ace_numeric">01</span><span class="ace_identifier">_saka_mau</span>.<span class="ace_identifier">pem</span> <span class="ace_keyword ace_operator">~/</span><span class="ace_identifier">Desktop</span><span class="ace_keyword ace_operator">/</span><span class="ace_identifier">jnet</span><span class="ace_keyword ace_operator">/</span><span class="ace_identifier">index</span>.<span class="ace_identifier">html</span> <span class="ace_identifier">ec2</span><span class="ace_keyword ace_operator">-</span><span class="ace_identifier">user</span>@<span class="ace_identifier">ec2</span><span class="ace_keyword ace_operator">-</span><span class="ace_constant ace_numeric">13</span><span class="ace_keyword ace_operator">-</span><span class="ace_constant ace_numeric">114</span><span class="ace_keyword ace_operator">-</span><span class="ace_constant ace_numeric">100</span><span class="ace_keyword ace_operator">-</span><span class="ace_constant ace_numeric">112.</span><span class="ace_identifier">ap</span><span class="ace_keyword ace_operator">-</span><span class="ace_identifier">northeast</span><span class="ace_keyword ace_operator">-</span><span class="ace_constant ace_numeric">1.</span><span class="ace_identifier">compute</span>.<span class="ace_identifier">amazonaws</span>.<span class="ace_identifier">com</span>:<span class="ace_keyword ace_operator">/</span><span class="ace_identifier">home</span><span class="ace_keyword ace_operator">/</span><span class="ace_identifier">ec2</span><span class="ace_keyword ace_operator">-</span><span class="ace_identifier">user</span><span class="ace_keyword ace_operator">/</span>.
+</div></div></div></pre>
+<ol start="2">
+<li>EC2インスタンスにログインし、ファイルがアップロードされたか確認する</li>
+</ol>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_paren ace_lparen">[</span><span class="ace_identifier">ec2</span><span class="ace_keyword ace_operator">-</span><span class="ace_identifier">user</span>@<span class="ace_identifier">ip</span><span class="ace_keyword ace_operator">-</span><span class="ace_constant ace_numeric">172</span><span class="ace_keyword ace_operator">-</span><span class="ace_constant ace_numeric">31</span><span class="ace_keyword ace_operator">-</span><span class="ace_constant ace_numeric">25</span><span class="ace_keyword ace_operator">-</span><span class="ace_constant ace_numeric">115</span> <span class="ace_keyword ace_operator">~</span><span class="ace_paren ace_rparen">]</span>$ <span class="ace_identifier">ls</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_identifier">index</span>.<span class="ace_identifier">html</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_paren ace_lparen">[</span><span class="ace_identifier">ec2</span><span class="ace_keyword ace_operator">-</span><span class="ace_identifier">user</span>@<span class="ace_identifier">ip</span><span class="ace_keyword ace_operator">-</span><span class="ace_constant ace_numeric">172</span><span class="ace_keyword ace_operator">-</span><span class="ace_constant ace_numeric">31</span><span class="ace_keyword ace_operator">-</span><span class="ace_constant ace_numeric">25</span><span class="ace_keyword ace_operator">-</span><span class="ace_constant ace_numeric">115</span> <span class="ace_keyword ace_operator">~</span><span class="ace_paren ace_rparen">]</span>$
+</div></div></div></pre>
+<h4>◇ HTMLファイルの配置</h4>
+<p>アップロードしたファイルを以下場所(<code>/usr/share/nginx/html/配下</code>)に配置する</p>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>sudo mv index.html /usr/share/nginx/html/.
+</div></div></div></pre>
+<h4>◇ ブラウザでアップロードしたMarkdownを表示</h4>
+<p>ブラウザのURLバーに以下のURLを入力する<br>
+例)</p>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>http://ec2-13-114-100-112.ap-northeast-1.compute.amazonaws.com/
+</div></div></div></pre>
+<img width="1082" alt="2017-10-21 14 45 44" src="https://user-images.githubusercontent.com/649128/31848463-abd3df10-b66e-11e7-90a6-44efea58ce7c.png">
+<p>以下の様に表示される<br>
+<img width="1433" alt="2017-10-21 14 45 54" src="https://user-images.githubusercontent.com/649128/31848464-abfc7858-b66e-11e7-89ed-5f8e148c601d.png"></p>
+<h2>二日目</h2>
+<h3>■ Ansibleのインストール</h3>
+<p>Macの場合、以下のコマンドを入力してインストールする。<br>
+その際、<a href="https://brew.sh/index_ja.html">homebrew</a>がインストールされていること。</p>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_identifier">brew</span> <span class="ace_identifier">update</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_identifier">brew</span> <span class="ace_identifier">install</span> <span class="ace_identifier">ansible</span>
+</div></div></div></pre>
+<h4>◇ Ansibleのファイル構成</h4>
+<p>以下のようにファイルを配置する。<br>
+以降、これらのファイルの設定例を示す。</p>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>$ tree
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>.
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>├── files
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>│<span class="ace_invisible ace_invisible_space ace_invalid">·</span><span class="ace_invisible ace_invisible_space ace_invalid">·</span> ├── doc.html
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>│<span class="ace_invisible ace_invisible_space ace_invalid">·</span><span class="ace_invisible ace_invisible_space ace_invalid">·</span> └── nginx.conf
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>├── hosts
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>└── playbook.yml
+</div></div></div></pre>
+<h4>◇ doc.html</h4>
+<p>Markdownファイル→HTMLファイルとして保存したもの。</p>
+<h4>◇ nginx.conf</h4>
+<p>{url}/j2net/doc.htmlにアクセスした際にdoc.htmlの内容を表示させるために独自に編集したもの。<br>
+既存ファイルとの変更内容は以下。</p>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_invisible">[ec2-user@ip-172-31-26-213 nginx]$ diff -u nginx.conf.org nginx.conf</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_constant ace_numeric">---</span><span class="ace_meta ace_tag"> nginx.conf.org  2017-10-23 06:27:25.115435257 +0000</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_constant ace_numeric">+++</span><span class="ace_meta ace_tag"> nginx.conf  2017-10-22 11:56:15.147794000 +0000</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_constant">@@</span><span class="ace_constant ace_numeric"> -46,6 +46,10 </span><span class="ace_constant">@@</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span><span class="ace_invisible"> # Load configuration files for the default server block.</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span><span class="ace_invisible"> include /etc/nginx/default.d/*.conf;</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_support ace_constant">+</span>        location /j2net/doc.html {
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_support ace_constant">+</span>            rewrite ^ /doc.html break;
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_support ace_constant">+</span>        }
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_support ace_constant">+</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span><span class="ace_invisible"> location / {</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_indent-guide">    </span><span class="ace_invisible"> }</span>
+</div></div></div></pre>
+<h4>◇ hosts</h4>
+<p>sshの接続情報を記載したファイルである。</p>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>[mau-saka]
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>13.114.100.112
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>[mau-saka:vars]
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>ansible_ssh_port=22
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>ansible_ssh_user=ec2-user
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>ansible_ssh_private_key_file=/Users/sakamaki/.ssh/01_saka_mau.pem
+</div></div></div></pre>
+<h4>◇ playbook.yml</h4>
+<p>作業内容を指定するためにはplaybookを記述する必要がある。<br>
+実際には以下の処理を行っている。</p>
+<ol>
+<li>Nginxインストール</li>
+<li>doc.htmlをサーバの/usr/share/nginx/html/配下に配置</li>
+<li>nginx.confをサーバの/etc/nginx/配下に配置</li>
+<li>Nginx起動＆サーバ起動時に自動起動に指定</li>
+</ol>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_list ace_markup">- </span><span class="ace_meta ace_tag">hosts</span><span class="ace_keyword">: </span>mau-saka
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_meta ace_tag">  become</span><span class="ace_keyword">: </span><span class="ace_constant ace_language ace_boolean">yes</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_meta ace_tag">  become_user</span><span class="ace_keyword">: </span>root
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_meta ace_tag">  tasks</span><span class="ace_keyword">:</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_list ace_markup">    - </span><span class="ace_meta ace_tag">name</span><span class="ace_keyword">: </span>Install nginx
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_meta ace_tag">  yum</span><span class="ace_keyword">: </span>name=nginx state=latest
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_meta ace_tag">  tags</span><span class="ace_keyword">:</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_list ace_markup">    - </span>install
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_list ace_markup">    - </span><span class="ace_meta ace_tag">name</span><span class="ace_keyword">: </span>Upload file that doc.html to server
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_meta ace_tag">  copy</span><span class="ace_keyword">: </span>src=doc.html dest=/usr/share/nginx/html/
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_meta ace_tag">  tags</span><span class="ace_keyword">:</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_list ace_markup">    - </span>upload_html
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_list ace_markup">    - </span><span class="ace_meta ace_tag">name</span><span class="ace_keyword">: </span>Upload file that nginx.conf to server
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_meta ace_tag">  copy</span><span class="ace_keyword">: </span>src=nginx.conf dest=/etc/nginx/
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_meta ace_tag">  tags</span><span class="ace_keyword">:</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_list ace_markup">    - </span>upload_nginx_conf
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_list ace_markup">    - </span><span class="ace_meta ace_tag">name</span><span class="ace_keyword">: </span>Startup Nginx
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_meta ace_tag">  service</span><span class="ace_keyword">: </span>name=nginx state=started enabled=<span class="ace_constant ace_language ace_boolean">yes</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_meta ace_tag">  tags</span><span class="ace_keyword">:</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_list ace_markup">    - </span>startup
+</div></div></div></pre>
+<h4>◇ playbookの実行</h4>
+<p>hostsファイルとplaybook.ymlファイルと同じ位置で以下のコマンドを実行すると、ブラウザにmarkdownの内容が表示されるまで一気にやってくれる。</p>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>ansible-playbook -i hosts playbook.yml
+</div></div></div></pre>
+<h4>◇ playbookの実行補足</h4>
+<p>ansibleはタグ指定することでそのタグに割当てられたタスクが実行できる。<br>
+具体的には以下のように行う。</p>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>ansible-playbook -i hosts playbook.yml --tags "install"
+</div></div></div></pre>
+<h3>■ Amazon Linuxの仮想マシンをMac上にインストール</h3>
+<p>知らないうちにAmazon LinuxはOSのイメージが提供されるようになったそうだ。<br>
+今回は[vagrant](https://ja.wikipedia.org/wiki/Vagrant_(%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2)を使ってMacの仮想マシン上（VirtualBox）にAmazon Linuxのインストールを行う。</p>
+<p>Macの場合、以下のコマンドを入力してvagrantインストールする。</p>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>brew install vagrant
+</div></div></div></pre>
+<p>以下のコマンドでMacの仮想マシン上(VirtualBox)にAmazon Linuxを起動するために必要なVagrantfileが作成される。</p>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>mkdir alinux &amp;&amp; cd alinux
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>vagrant init mvbcoding/awslinux
+</div></div></div></pre>
+<p>そのままだと、IPを指定してsshログインできないので、上記の先程のコマンドで作成されたVagrantfileを編集し、以下のように修正する。</p>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_invisible">$ diff -u Vagrantfile.org Vagrantfile</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_constant ace_numeric">---</span><span class="ace_meta ace_tag"> Vagrantfile.org 2017-10-22 14:52:56.000000000 +0900</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_constant ace_numeric">+++</span><span class="ace_meta ace_tag"> Vagrantfile 2017-10-22 14:53:05.000000000 +0900</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_constant">@@</span><span class="ace_constant ace_numeric"> -26,7 +26,7 </span><span class="ace_constant">@@</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_invisible">  # Create a private network, which allows host-only access to the machine</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_invisible">  # using a specific IP.</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_support ace_function">-</span><span class="ace_string">  # config.vm.network "private_network", ip: "192.168.33.10"</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_support ace_constant">+</span>  config.vm.network "private_network", ip: "192.168.33.10"
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_invisible">  # Create a public network, which generally matched to bridged network.</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_invisible">  # Bridged networks make the machine appear as another physical device on</span>
+</div></div></div></pre>
+<p>以下のコマンドを入力し、Amazon Linuxを起動する。</p>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>vagrant up
+</div></div></div></pre>
+<p>起動後、以下のコマンドを入力し、sshするための情報を取得する。</p>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>vagrant ssh-config
+</div></div></div></pre>
+<p>すると以下の情報が返され、IdentityFileの場所がわかる。<br>
+<code>/Users/{username}/tmp/alinux/.vagrant/machines/default/virtualbox/private_key</code> というファイルがsshの秘密鍵でこれを使ってssh接続する</p>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>$ vagrant ssh-config
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>Host default
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span> HostName 127.0.0.1
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span> User vagrant
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span> Port 2222
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span> UserKnownHostsFile /dev/null
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span> StrictHostKeyChecking no
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span> PasswordAuthentication no
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span> IdentityFile /Users/{username}/tmp/alinux/.vagrant/machines/default/virtualbox/private_key
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span> IdentitiesOnly yes
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span> LogLevel FATAL
+</div></div></div></pre>
+<h4>◇ hosts</h4>
+<p>既存のhostsファイルに追記し、sshアクセスするための情報を記載する。</p>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>[vagrant]
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>192.168.33.10
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>[vagrant:vars]
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>ansible_ssh_port=22
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>ansible_ssh_user=vagrant
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>ansible_ssh_private_key_file=/Users/sakamaki/tmp/alinux/.vagrant/machines/default/virtualbox/private_key
+</div></div></div></pre>
+<h4>◇ playbook_local.yml</h4>
+<p>以下のplaybook: playbook_local.ymlを作成する。<br>
+設定内容は以下。</p>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_list ace_markup">- </span><span class="ace_meta ace_tag">hosts</span><span class="ace_keyword">: </span>vagrant
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_meta ace_tag">  become</span><span class="ace_keyword">: </span><span class="ace_constant ace_language ace_boolean">yes</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_meta ace_tag">  become_user</span><span class="ace_keyword">: </span>root
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_meta ace_tag">  tasks</span><span class="ace_keyword">:</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_list ace_markup">    - </span><span class="ace_meta ace_tag">name</span><span class="ace_keyword">: </span>Install nginx
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_meta ace_tag">  yum</span><span class="ace_keyword">: </span>name=nginx state=latest
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_meta ace_tag">  tags</span><span class="ace_keyword">:</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_list ace_markup">    - </span>install
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_list ace_markup">    - </span><span class="ace_meta ace_tag">name</span><span class="ace_keyword">: </span>Upload file that doc.html to server
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_meta ace_tag">  copy</span><span class="ace_keyword">: </span>src=doc.html dest=/usr/share/nginx/html/
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_meta ace_tag">  tags</span><span class="ace_keyword">:</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_list ace_markup">    - </span>upload_file
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_list ace_markup">    - </span><span class="ace_meta ace_tag">name</span><span class="ace_keyword">: </span>Upload file that nginx.conf to server
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_meta ace_tag">  copy</span><span class="ace_keyword">: </span>src=nginx.conf dest=/etc/nginx/
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_meta ace_tag">  tags</span><span class="ace_keyword">:</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_list ace_markup">    - </span>upload_file
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_list ace_markup">    - </span><span class="ace_meta ace_tag">name</span><span class="ace_keyword">: </span>Startup Nginx
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_meta ace_tag">  service</span><span class="ace_keyword">: </span>name=nginx state=started enabled=<span class="ace_constant ace_language ace_boolean">yes</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_meta ace_tag">  tags</span><span class="ace_keyword">:</span>
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_indent-guide">    </span><span class="ace_list ace_markup">    - </span>startup
+</div></div></div></pre>
+<p>以下のようにplaybook_local.ymlが配置されていること。</p>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>$ tree
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>.
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>├── files
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>│<span class="ace_invisible ace_invisible_space ace_invalid">·</span><span class="ace_invisible ace_invisible_space ace_invalid">·</span> ├── doc.html
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>│<span class="ace_invisible ace_invisible_space ace_invalid">·</span><span class="ace_invisible ace_invisible_space ace_invalid">·</span> └── nginx.conf
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>├── hosts
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>├── playbook.yml
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>└── playbook_local.yml
+</div></div></div></pre>
+<p>playbookを実行する。</p>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>ansible-playbook -i hosts playbook_local.yml
+</div></div></div></pre>
+<h4>◇ 参考</h4>
+<ul>
+<li><a href="https://qiita.com/kkitta/items/27f8aca89e55b719cb6f">Ansible で Mac を構成管理するときの勘所</a></li>
+<li><a href="https://www.amazon.co.jp/%E6%9A%97%E5%8F%B7%E8%A7%A3%E8%AA%AD%E3%80%88%E4%B8%8A%E3%80%89-%E6%96%B0%E6%BD%AE%E6%96%87%E5%BA%AB-%E3%82%B5%E3%82%A4%E3%83%A2%E3%83%B3-%E3%82%B7%E3%83%B3/dp/410215972X">暗号解読〈上〉 (新潮文庫) </a></li>
+</ul>
+<h2>Tips</h2>
+<p>以下のファイルを監視すると外部からのアクセス形跡を確認できる。</p>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>tail -f /var/log/secure
+</div></div></div></pre>
+<h2>中間提出</h2>
+<p>このMarkdownをHTML化して、サーバーにホストしたものをFacebookグループに報告する。<br>
+その際、{url}/j2net/doc.hmtlの形でホストすること。</p>
+<h2>三日目</h2>
+<p>Webサイトのスクレイピングを行い、D3.jsを使って映像表現するところまで進めたい。<br>
+まずは、以下の<a href="http://yamakk.com/musabi/network2017/">課題</a>を終わらせる</p>
+<pre><div class="ace-monokai"><div class="ace_static_highlight ace_show_gutter" style="counter-reset:ace_line 0"><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>2017 Yearly Box Office Results - Box Office Mojo
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span>http://www.boxofficemojo.com/yearly/chart/?yr=2017&amp;p=.htm
+</div><div class="ace_line"><span class="ace_gutter ace_gutter-cell" unselectable="on"></span><span class="ace_cjk" style="width:NaNpx">か</span><span class="ace_cjk" style="width:NaNpx">ら</span>2017<span class="ace_cjk" style="width:NaNpx">年</span><span class="ace_cjk" style="width:NaNpx">の</span><span class="ace_cjk" style="width:NaNpx">興</span><span class="ace_cjk" style="width:NaNpx">行</span><span class="ace_cjk" style="width:NaNpx">収</span><span class="ace_cjk" style="width:NaNpx">入</span><span class="ace_cjk" style="width:NaNpx">ラ</span><span class="ace_cjk" style="width:NaNpx">ン</span><span class="ace_cjk" style="width:NaNpx">キ</span><span class="ace_cjk" style="width:NaNpx">ン</span><span class="ace_cjk" style="width:NaNpx">グ</span><span class="ace_cjk" style="width:NaNpx">を</span><span class="ace_cjk" style="width:NaNpx">プ</span><span class="ace_cjk" style="width:NaNpx">ロ</span><span class="ace_cjk" style="width:NaNpx">グ</span><span class="ace_cjk" style="width:NaNpx">ラ</span><span class="ace_cjk" style="width:NaNpx">ム</span><span class="ace_cjk" style="width:NaNpx">で</span>1<span class="ace_cjk" style="width:NaNpx">位</span><span class="ace_cjk" style="width:NaNpx">か</span><span class="ace_cjk" style="width:NaNpx">ら</span>100<span class="ace_cjk" style="width:NaNpx">位</span><span class="ace_cjk" style="width:NaNpx">ま</span><span class="ace_cjk" style="width:NaNpx">で</span><span class="ace_cjk" style="width:NaNpx">取</span><span class="ace_cjk" style="width:NaNpx">得</span><span class="ace_cjk" style="width:NaNpx">し</span><span class="ace_cjk" style="width:NaNpx">、</span>tsv<span class="ace_cjk" style="width:NaNpx">フ</span><span class="ace_cjk" style="width:NaNpx">ァ</span><span class="ace_cjk" style="width:NaNpx">イ</span><span class="ace_cjk" style="width:NaNpx">ル</span>(<span class="ace_cjk" style="width:NaNpx">タ</span><span class="ace_cjk" style="width:NaNpx">ブ</span><span class="ace_cjk" style="width:NaNpx">で</span><span class="ace_cjk" style="width:NaNpx">区</span><span class="ace_cjk" style="width:NaNpx">切</span><span class="ace_cjk" style="width:NaNpx">ら</span><span class="ace_cjk" style="width:NaNpx">れ</span><span class="ace_cjk" style="width:NaNpx">た</span><span class="ace_cjk" style="width:NaNpx">フ</span><span class="ace_cjk" style="width:NaNpx">ァ</span><span class="ace_cjk" style="width:NaNpx">イ</span><span class="ace_cjk" style="width:NaNpx">ル</span>)<span class="ace_cjk" style="width:NaNpx">に</span><span class="ace_cjk" style="width:NaNpx">書</span><span class="ace_cjk" style="width:NaNpx">き</span><span class="ace_cjk" style="width:NaNpx">出</span><span class="ace_cjk" style="width:NaNpx">す</span><span class="ace_cjk" style="width:NaNpx">。</span>
+</div></div></div></pre>
+<h3>Ansibleセットアップ</h3>
+<h4>前提</h4>
+<ul>
+<li>OSはAmazon Linuxを使用する</li>
+<li>WebアプリケーションフレームワークはDjango ver1.11.6を使用</li>
+<li>アプリケーションサーバはgunicornを使用する</li>
+</ul>
+<h4>実行内容</h4>
+<ul>
+<li>クローラ:boxoffice.py作成</li>
+</ul>
+<h2>四日目</h2>
+<p>以下の残タスクを片付ける</p>
+<ul>
+<li>はてなブックマークのホットエントリーをスクレイピングするためのクローラの作成</li>
+<li>D3.jsを使って情報を可視化する。</li>
+<li>Ansibleのplaybookに設定をまとめる</li>
+</ul>
+<h3>はてなブックマークのホットエントリーをスクレイピングするためのクローラの作成</h3>
+<h3>D3.jsを使って情報を可視化する。</h3>
+<h3>Ansibleのplaybookに設定をまとめる</h3>
+</div></div>
+      <script></script>
+    </body>
+    </html>
+  

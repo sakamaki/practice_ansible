@@ -1,0 +1,149 @@
+- hosts: mau-saka
+  become: yes
+  become_user: root
+  tasks:
+    - name: Install nginx
+      yum: name=nginx state=latest
+      tags:
+        - install
+
+    - name: Upload file that doc.html to server
+      copy: src=doc.html dest=/usr/share/nginx/html/
+      tags:
+        - upload_file
+
+    - name: Upload file that nginx.conf to server
+      copy: src=nginx.conf dest=/etc/nginx/
+      tags:
+        - upload_file
+
+    - name: Startup Nginx
+      service: name=nginx state=started enabled=yes
+      tags:
+        - startup
+
+- hosts: mau-saka2
+  become: yes
+  become_user: root
+  vars:
+    app_name: practice_d3
+  tasks:
+#    - name: Upload file that nginx.repo
+#      copy: src=nginx.repo dest=/etc/yum.repos.d/
+#      tags:
+#        - upload_file
+
+    - name: Install git
+      yum: name=git state=latest
+      tags:
+        - install
+
+    - name: Install nginx
+      yum: name=nginx state=latest
+      tags:
+        - install
+
+    - name: Upload file that doc.html to server
+      copy: src=doc.html dest=/usr/share/nginx/html/
+      tags:
+        - upload_file
+
+    - name: Upload file that nginx.conf to server
+      copy: src=nginx.conf dest=/etc/nginx/
+      tags:
+        - upload_file
+
+    - name: Upload file that mime.types to server
+      copy: src=mime.types dest=/etc/nginx/
+      tags:
+        - upload_file
+
+    - name: Upload file that boxoffice.py to server
+      copy: src=boxoffice.py dest=/tmp/
+      tags:
+        - upload_file
+
+    - name: Clone git repository which is practice_d3
+      git:
+        repo: https://github.com/sakamaki/{{app_name}}.git
+        dest: /app/practice_d3
+        clone: yes
+      ignore_errors: yes
+      become: yes
+      tags:
+        - git
+
+#    - name: download get-pip
+#      get_url: url=https://bootstrap.pypa.io/get-pip.py  dest=/tmp
+#      tags:
+#        - pip-install
+#
+#    - name: Install pip
+#      shell: /tmp/get-pip.py | python
+#      become: yes
+#      tags:
+#        - pip_install
+
+    - name: Install virtualenv
+      pip:
+        name: virtualenv
+      become: yes
+      tags:
+        - pip_install
+
+    - name: Manually create the initial virtualenv
+      command: virtualenv /app/appenv -p python2.7 creates="/app/appenv"
+      tags:
+        - pip_install
+
+    - name: Install requirements
+      pip:
+        requirements=/app/{{app_name}}/{{app_name}}/requirements.txt
+        virtualenv=/app/appenv
+      tags:
+        - pip_install
+
+    - name: Perform boxoffice.py
+      shell: /app/appenv/bin/python /tmp/boxoffice.py
+      tags:
+        - generate_file
+
+    - name: Upload file that django_migrate.sh to server
+      copy: src=django_migrate.sh dest=/tmp/ mode=0700
+      tags:
+        - django
+
+    - name: Migrate database
+      shell: /tmp/django_migrate.sh
+      tags:
+        - django
+
+    - name: Upload file that crawl_hatebu.sh to server
+      copy: src=crawl_hatebu.sh dest=/tmp/ mode=0700
+      tags:
+        - crawl_hatebu
+
+    - name: crawl hatena bookmark
+      shell: /tmp/crawl_hatebu.sh
+      tags:
+        - crawl_hatebu
+
+    - name: run gunicorn on a virtualenv
+      gunicorn:
+        app: '{{app_name}}.wsgi'
+        chdir: '/app/{{app_name}}'
+        venv: '/app/appenv'
+        pid: '/tmp/gunicorn.pid'
+      tags:
+        - gunicorn
+
+#    - name: kill gunicorn process
+#      command: kill `cat /tmp/gunicorn.pid`
+#      when: tags=='kill_gunicorn'
+#      tags:
+#        - kill_gunicorn
+
+    - name: Startup Nginx
+      service: name=nginx state=started enabled=yes
+      tags:
+        - startup
